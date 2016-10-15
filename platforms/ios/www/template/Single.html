@@ -1,0 +1,110 @@
+<ion-view style="color: #e6b500" view-title="{{singleProduct.title}}" ng-controller="SingleCtrl">
+    <ion-content class="single-item" padding="true">
+
+        <div ng-class="{'item-avatar':item.shortname, 'star': item.star}">
+
+            <ion-card>
+                <h2 class="card-title">Name : {{singleProduct.title}}</h2>
+
+                <ion-card-content>
+                    <ion-item>
+                        <p>price : {{singleProduct.price}} tl</p>
+                    </ion-item>
+                    <ion-item>
+                        <p>about : {{singleProduct.description}}</p>
+                    </ion-item>
+                    
+                    <ion-item>
+                        <p>Rate :</p>
+                        <rating ng-model="rating.rate" max="rating.max"></rating>
+                    </ion-item>
+
+                    <ion-item>
+                        <p>Quantity Available : {{singleProduct.quantity}}</p>
+                    </ion-item>
+
+                </ion-card-content>
+
+                <ion-item>
+                    <span style="color:black; font-size: medium ">
+                    Date :{{singleProduct.date | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</span>
+                </ion-item>
+
+                <ion-item>
+                    <form class="list">
+                        <button class="button button-outline button-positive icon ion-person" ui-sref="app.profile({id:singleProduct.ownerId})" nav-direction="enter">
+                            Owner's profile
+                        </button>
+                    </form>
+                </ion-item>
+
+            </ion-card>
+
+            <div style="width: 300px; height: 10px;" class="spacer"></div>
+
+            <div>  Share it :</div>
+
+
+            <button class="button button-small button-royal item-icon-left icon ion-social-facebook " ng-click="ShareFacebook()">
+                <i class=></i>
+            </button>
+
+
+            <button class="button button-small button-royal item-icon-left icon icon ion-social-whatsapp" ng-click="whatsappShare()">
+                <i class=""></i>
+            </button>
+
+
+            <button class="button button-small button-royal item-icon-left icon ion-social-twitter" ng-click="twitterShare()">
+                <i class=""></i>
+            </button>
+
+
+            <button class="button button-small button-royal icon ion-android-share-alt" ng-click="OtherShare()">
+                <i class=""></i>
+            </button>
+
+
+
+            <div class="img">
+                <img src={{singleProduct.img}}>
+            </div>
+
+            <button class="button button-clear icon ion-android-favorite button-assertive" ng-click="toggleStar(item)" ng-show="item.star"></button>
+
+            <form class="list">
+                <div style="" class="range range-positive">
+                    <a class="icon ion-sad"></a>
+                    <input max="10" min="0" value="{{singleProduct.rate}}" type="range" ng-model="rate" ng-change="RateIt()">
+                    <a class="icon ion-happy"></a>
+                </div>
+            </form>
+
+        </div>
+
+        <button ng-disabled="!isAllowedUser(singleProduct)" class=" button button-assertive icon ion-android-delete" ng-click="Delete(item)"></button>
+
+
+        <button class="button button-calm icon ion-edit" ui-sref="app.editProduct({id: singleProduct.$id})" ng-disabled="!isAllowedUser(singleProduct)"></button>
+
+        <!-- we don't need to start a chat or phone call from a guest user -->
+        <!-- or if the user is the owner himself !! -->
+
+        <button class="button button-positive  icon ion-android-chat" ng-disabled="!CurrentUserID || CurrentUserID === owner.uid" ui-sref="app.Chat({id:singleProduct.ownerId})"></button>
+
+        <a ng-disabled="!CurrentUserID || CurrentUserID === owner.uid" href="tel:{{owner.phone}}" class="button button-energized icon ion-android-call "></a>
+
+
+        <a ng-disabled="!CurrentUserID || CurrentUserID === owner.uid" class="button button-positive  icon ion-android-mail" href="mailto:{{owner.email}}"></a>
+
+        <button class="button button-assertive  icon ion-android-favorite" ng-click="AddFavorite(singleProduct)"></button>
+
+        <button class="button button-balanced icon ion-android-cart" ng-click="AddToCart(singleProduct)"></button>
+
+        <button class="button button-positive  button-block" ng-click="BuyNow(item)">Buy Now</button>
+
+        <div style="width: 300px; height: 22px;" class="spacer"></div>
+
+
+    </ion-content>
+</ion-view>

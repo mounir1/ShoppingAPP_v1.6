@@ -1,0 +1,37 @@
+<ion-view view-title="My Cart">
+    <ion-content class="note-listing">
+        <div class="row">
+            <div class="col">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+
+                </ion-refresher>
+                <ion-list ng-controller="myProductCtrl">
+                    <ion-item ui-sref="SingleNote({id:note.$id})"
+                              class="item-thumbnail-left" ng-repeat="note in notes">
+                        <img src={{note.img}}>
+                        <p>{{note.title}}</p>
+                        <p>{{note.price}} tl</p>
+                        <p>{{note.date}}</p>
+
+                        <span am-time-ago="note.date"></span>
+
+                        <ion-option-button ng-click="AddFavorit(item.id)"
+                                           class="button-royal icon ion-android-favorite-outline"></ion-option-button>
+
+                        <ion-option-button ng-click="AddFavorit(item.id)"
+                                           class="button-positive icon ion-ios-cart"></ion-option-button>
+
+                        <ion-option-button ng-click="Edit(item.id)" class="button-calm ion-edit"></ion-option-button>
+
+                        <ion-option-button ng-click="Edit(item.id)"
+                                           class="button-assertive ion-android-delete"></ion-option-button>
+
+                    </ion-item>
+                    <div style="width: 300px; height: 10px;" class="spacer"></div>
+                </ion-list>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,121 @@
+<ion-view view-title="Products" style="color: #e6b500">
+
+    <div class="bar bar-subheader item-input-inset bar-light">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input class="searchbar" type="search" ng-model="query" placeholder="Search">
+        </label>
+        <label>
+
+            <select [(ngModel)]="order">
+                <option value="1" checked="true">Time Descending</option>
+                <option value="2">Time Ascending</option>
+                <option value="3">price Descending</option>
+                <option value="4">price Ascending</option>
+                <option value="5">second Hand</option>
+                <option value="5"> Reviews</option>
+            </select>
+
+        </label>
+    </div>
+    <ion-content class="note-content has-subheader" padding="true">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+
+        </ion-refresher>
+
+        <ion-list ng-controller="listCtrl">
+            <ion-item ui-sref="app.SingleProduct({id:item.$id})" class="item-thumbnail-left item-text-wrap icon-left"
+                      ng-class="{'item-avatar':item.shortname, 'star': item.star}"
+                      ng-repeat="item in Products | orderBy:'-date'  | filter: query ">
+
+                <img src={{item.img}}>
+
+                <p class="item-title"> {{item.title}}</p>
+
+                <p class="item-price">{{item.price}} tl</p>
+
+                <!-- <p>{{item.description}}</p>-->
+
+                <!- moment time ago - >
+                <span class="time-display" am-time-ago="item.date"></span>
+
+                <!-- <img class="img_icon " src="img/sale_icon.png">-->
+
+                <img class="img_sale " ng-show="isforSale(item) === false" ng-src="img/icon_sold.png">
+                <img class="img_sale " ng-show="isforSale(item) === true" ng-src="img/sale_icon.png">
+
+
+                <button class="button button-clear icon ion-android-favorite button-assertive"
+                        ng-click="toggleStar(item)"
+                        ng-show="item.star"></button>
+
+
+                <ion-option-button ui-sref="app.editProduct({id: item.$id})"
+                                   ng-disabled="!isAllowedUser(item)"
+                                   class="button-calm icon ion-edit"></ion-option-button>
+
+                <ion-option-button ng-click="Delete(item)"
+                                   ng-disabled="!isAllowedUser(item)"
+                                   class="button-assertive icon ion-android-delete"></ion-option-button>
+
+                <ion-option-button ng-click="AddToCart(item)"
+                                   class="button-positive icon ion-ios-cart"></ion-option-button>
+
+                <ion-option-button ng-click="AddFavorite(item)"
+                                   class="button-energized icon ion-android-favorite"></ion-option-button>
+
+
+                <!--<ion-option-button ng-click="AddFavorit(item)"
+                                   class="button-royal icon ion-android-favorite-outline"></ion-option-button>
+-->
+
+            </ion-item>
+            <div style="width: 300px; height: 10px;" class="spacer"></div>
+        </ion-list>
+
+
+        <div style="width: 300px; height: 30px;" class="spacer"></div>
+
+        <ion-list title="Categories" style="">
+            <ion-item style="" ui-sref="app.clothes" class="item-thumbnail-left">
+                <img src="img/td2LT6o0QWCfUXNF1BpN_Clothes.jpg">
+                <h2>Clothes</h2>
+                <p>For Men and Women (shoes, shirt, underwears..)</p>
+            </ion-item>
+            <div style="width: 300px; height: 13px;" class="spacer"></div>
+            <ion-item style="" ui-sref="app.jewelriesWatches" class="item-thumbnail-left">
+                <img src="img/DqwnNCvgTDSmdmgFp5X1_sell-jewelry.jpg">
+                <h2>jewelry &amp; watches</h2>
+                <p>Accessoires...</p>
+            </ion-item>
+            <div style="width: 300px; height: 13px;" class="spacer"></div>
+            <ion-item style="" ui-sref="app.bikesAndMotorBikes" class="item-thumbnail-left">
+                <img src="img/c6DSEjCwSoyiY1ld2YkA_e-bikes-China-640-X-480.jpg">
+                <h2>Bikes &amp; Motorbikes &amp; Cars</h2>
+                <p>Electric , feul</p>
+            </ion-item>
+            <div style="width: 300px; height: 13px;" class="spacer"></div>
+            <ion-item style="" ui-sref="app.electronicDevices" class="item-thumbnail-left">
+                <img src="img/nuLk9cMGSRehMlnX20WT_Electronic_devices.jpg">
+                <h2>Electronics Devices</h2>
+                <p>Phones,Tabs,Computers</p>
+            </ion-item>
+            <div style="width: 300px; height: 13px;" class="spacer"></div>
+            <ion-item style="" ui-sref="app.books" class="item-thumbnail-left">
+                <img src="img/sZacRdQZRra3mMCOeSn4_download (1).jpeg">
+                <h2>Books</h2>
+                <p>Textbooks, Ebooks</p>
+            </ion-item>
+            <div style="width: 300px; height: 13px;" class="spacer"></div>
+            <ion-item style="" ui-sref="app.everythingElse" class="item-thumbnail-left">
+                <img src="img/jQeBRywTMaQj6nM4N90X_anything_else.jpg">
+                <h2>Everything else</h2>
+                <p>houses fornitures , tools</p>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-view>
+
+

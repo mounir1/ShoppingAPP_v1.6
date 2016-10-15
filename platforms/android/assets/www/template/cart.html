@@ -1,0 +1,23 @@
+<ion-view   view-title="M Cart">
+    <ion-content>
+        <div class="row">
+            <div class="col">
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+
+                </ion-refresher>
+                <ion-list ng-controller="cartCtrl">
+                    <ion-item ui-sref="app.SingleProduct({id:item.$id})"
+                              class="item-thumbnail-left" ng-repeat="item in cartproducts">
+                        <img src={{item.img}}>
+                        <p>{{item.title}}</p>
+
+                        <span am-time-ago="item.date"></span>  
+                    </ion-item>
+                    <div style="width: 300px; height: 10px;" class="spacer"></div>
+                </ion-list>
+            </div>
+        </div>
+        <div clss = "center"> total purchase :</div>
+        <a class="button button-calm button-outline icon ion-dept "> {{Total}} TL</a>
+    </ion-content>
+</ion-view>

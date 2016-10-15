@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "ShoppingApp",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

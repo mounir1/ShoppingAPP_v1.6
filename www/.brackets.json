@@ -1,0 +1,10 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/mac/Desktop/ShoppingAPP/www/lib/ionicuirouter/ionicUIRouter.js",
+        "/Users/mac/Desktop/ShoppingAPP/www/lib/ionic/js/ionic.min.js",
+        "/Users/mac/Desktop/ShoppingAPP/www/lib/ionic/js/ionic.js",
+        "/Users/mac/Desktop/ShoppingAPP/www/lib/ionic/js/ionic.bundle.min.js",
+        "/Users/mac/Desktop/ShoppingAPP_v1.5/www/lib/ionicuirouter/ionicUIRouter.js",
+        "/Users/mac/Desktop/ShoppingAPP_v1.5/www/lib/ionic-rating/ionic-rating.min.js"
+    ]
+}

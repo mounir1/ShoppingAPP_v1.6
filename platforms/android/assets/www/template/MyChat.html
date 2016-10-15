@@ -1,0 +1,19 @@
+<ion-view view-title="My Chat Rooms">
+    <ion-content class="note-listing">
+        <div class="row">
+            <div class="col">
+                
+                <ion-list >
+                    <ion-item ui-sref="app.Chat({id:item.$id})"
+                              class="item-thumbnail-left" ng-repeat="item in mychats">
+                        <img class = "profile-image" ng-src={{item.touser.photoUrl}}>
+                    
+                    </ion-item>
+                    <div style="width: 300px; height: 10px;" class="spacer"></div>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+

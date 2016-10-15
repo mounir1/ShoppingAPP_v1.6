@@ -1,0 +1,123 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-royal">
+
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-royal">
+            <h1 class="title">Menu</h1>
+        </ion-header-bar>
+        <ion-content padding="true">
+
+            <h4 ng-show="name !== undefined">{{name}}</h4>
+            <div id="profile-info">
+                <img id="profile-image" ng-show="photoUrl !== undefined " src={{photoUrl}}>
+            </div>
+
+
+            <!--<img ng-show="photoUrl !== undefined " src={{photoUrl}}>-->
+
+            <ion-list class=" ion-item  ">
+
+                <ion-item menu-close ui-sref="app.ListProducts">
+                    <i class="icon ion-home"></i> Home</ion-item>
+
+                <ion-item menu-close ui-sref="app.ListCategories">
+                    <i class='ion-clipboard'></i> Categories</ion-item>
+
+                <ion-item  ng-show="uid !== undefined " menu-close ui-sref="app.profile({id:uid})">
+                    <i class='ion-person'></i> My Profile
+                </ion-item>
+
+                <ion-item ng-show="uid !== undefined " menu-close ui-sref="app.MyChat">
+                    <i class='ion-android-chat'></i> <span class="badge badge-assertive">3{{newmessages}}</span>Chats
+                </ion-item>
+
+                <ion-item ng-show="uid !== undefined "  menu-close ui-sref="app.addProduct">
+                    <i class='ion-plus'></i> Add Product
+                </ion-item>
+
+                <ion-item ng-show="uid !== undefined "  menu-close ui-sref="app.MyProducts">
+                    <i class='ion-ios-photos'></i> My Products
+                </ion-item>
+
+                <ion-item  ng-show="uid !== undefined " class="ion-badge 9" menu-close ui-sref="app.WatchList">
+                    <i class='ion-android-list'></i> My WatchList
+                </ion-item>
+
+                <ion-item ng-show="uid !== undefined "  menu-close ui-sref="app.cart">
+                    <i class='ion-android-list'></i> <span class="badge badge-assertive">6</span>My Cart
+                </ion-item>
+                <div style="width: 300px; height: 20px;" class="spacer"></div>
+            </ion-list>
+
+
+            <button ng-show=" uid === undefined" class="button button-inline button-positive icon ion-social-facebook padding-right" ng-click="LoginFB()"> LogIn
+            </button>
+            <button ng-show=" uid !== undefined" class="button button-inline button-balanced icon ion-log-out padding-left padding-bottom" ng-click="LogOut()">
+                LogOut
+            </button>
+
+            <div>
+                <img class="logo-image" src="img/ionic.png">
+            </div>
+
+            <i ng-show=" uid === undefined" class="button button-clear icon ion-log-in " ng-click="login()"> Admins login</i>
+            <i href="https://www.facebook.com/Abderrahmani.Mounir" class="button button-clear icon ion-social-facebook"></i>
+            <i href="mailto:mounir1badi@gmail.com" class="button button-clear icon ion-android-mail"></i>
+
+        </ion-content>
+    </ion-side-menu>
+
+
+</ion-side-menus>
+
+
+<!--<ion-view view-title="Home" ng-controller="loginCtrl">-->
+<!--<ion-content class="home" padding="true">-->
+
+<!--<h2>Hello {{name}}</h2>-->
+<!--<img src={{photoUrl}}>-->
+
+<!--<h3 class="text-center">Welcome To Noteit !</h3>-->
+<!--<h6 class="text-center"> Easy To use App to organize notes and todo tasks</h6>-->
+
+
+<!--<a class="button button-block button-balanced" ui-sref="ListNotes">View Products</a>-->
+<!--<a class="button button-block button-calm" ui-sref="ListNotes">Categories</a>-->
+<!--<a class="button button-block button-royal" ui-sref="profile({id:uid})">My Profile</a>-->
+
+<!--<a class="button button-block button-energized" ui-sref="cart">My Cart</a>-->
+<!--<a class="button button-block button-positive" ui-sref="MyShop">My Products</a>-->
+<!--<a class="button button-block button-energized" ui-sref="watchList">My WatchListt</a>-->
+
+<!--&lt;!&ndash;-->
+<!--<a class="button button-block button-calm" ui-sref="EditNotes">Edit Notes</a>-->
+<!--<a class="button button-block button-assertive" ui-sref="DeleteNotes">Delete Notes</a>-->
+<!--&ndash;&gt;-->
+<!--<a class="button button-inline button-positive icon ion-social-facebook" ng-click="LoginFB()"> LogIn-->
+<!--with Facebook</a>-->
+<!--<a class="button button-inline button-assertive icon ion-social-google" ng-click="LoginGoogle()"> LogIn-->
+<!--with Google</a>-->
+<!--<a class="button button-inline button-balanced icon ion-log-out" ng-click="LogOut()"> LogOut</a>-->
+
+
+<!--</ion-content>-->
+<!--<div class="bar bar-footer bar-royal ">-->
+<!--<a icon="ion-home" ui-sref="home"></a>-->
+<!--<a href="https://www.facebook.com/Abderrahmani.Mounir" icon="ion-social-facebook"></a>-->
+<!--<a href="mailto:mounir1badi@gmail.com" icon="ion-android-mail"></a>-->
+<!--</div>-->
+<!--</ion-view>-->

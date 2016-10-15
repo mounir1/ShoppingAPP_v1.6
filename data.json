@@ -1,0 +1,102 @@
+{
+  "Products": {
+    "-KIEo6H2ttdCDuF7bHVv": {
+      "date": 1463775425784,
+      "description": "Bought new one AND I dont like this one anymore ! if you want to buy this call me",
+      "img": "https://pixabay.com/static/uploads/photo/2015/09/12/21/31/car-937414_960_720.png",
+      "ownerId": "1063250750406962",
+      "price": 300000,
+      "quantity": 1,
+      "sale": true,
+      "title": "my car"
+    },
+    "-KIHPk3e22tkkW5QGAh6": {
+      "date": 1463819108785,
+      "description": "bought two weeks ago original price was 4680\nfeel free to contact me for more",
+      "img": "http://www.mobipicker.com/wp-content/uploads/2016/02/macbook-pro-1024x679.jpg",
+      "ownerId": "1063250750406962",
+      "price": 4500,
+      "quantity": 1,
+      "sale": true,
+      "title": "MacBook Pro"
+    },
+    "-KIJUPg-iZ8QZH3M5xW3": {
+      "date": 1463853886273,
+      "description": "Shipping for free in Antalya and Dosmealti",
+      "img": "http://o.aolcdn.com/hss/storage/midas/e00e7e71c7f9cfd51ed02812f53a0955/202465471/note5-fb.jpg",
+      "isused": true,
+      "ownerId": "1063250750406962",
+      "price": 2500,
+      "quantity": 1,
+      "sale": true,
+      "title": "Samsung Note 5"
+    },
+    "-KIPS8JiQKrcYBo_tnuB": {
+      "categoryId": 3,
+      "date": 1463953954176,
+      "description": "working Good model 2012\nbought a new one so this one would be of no use for me",
+      "img": "http://cdn4.zyxware.com/files/u1948/images/2012/04/5.jpg",
+      "isused": true,
+      "ownerId": "1063250750406962",
+      "price": 450,
+      "quantity": 1,
+      "sale": true,
+      "title": "Asus 14.04"
+    },
+    "-KIPY_wdylSgnK43pnGc": {
+      "categoryId": 1,
+      "date": 1463955644334,
+      "description": "Shipping for free in Antalya",
+      "img": "http://www.samsung.com/us/explore/galaxy-s7-features-and-specs/dist/assets/img/module3/s7edge.jpg",
+      "isused": true,
+      "ownerId": "1063250750406962",
+      "price": 3400,
+      "quantity": 5,
+      "sale": true,
+      "title": "Samsung S7"
+    },
+    "-KIUD8ArlcWPTDESwahp": {
+      "categoryId": 1,
+      "date": 1464033908612,
+      "description": "this trip is sponsored by the Antalya Beledeye the participants will visit Antalya's best places in a week accommodation and shelter are all included for a week",
+      "img": "http://static.parade.com/wp-content/uploads/2014/03/Sharing-Costs-on-a-Driving-Trip-ftr.jpg",
+      "isused": false,
+      "ownerId": "1063250750406962",
+      "price": 200,
+      "quantity": 1,
+      "sale": true,
+      "title": "Antalya Summer Trip"
+    },
+    "-KInTF276N6BNilJgSLR": {
+      "categoryId": 1,
+      "date": 1464373676233,
+      "description": "NEW",
+      "img": "FDFDF",
+      "isused": true,
+      "ownerId": "1063250750406962",
+      "photos": [
+        " "
+      ],
+      "price": 12,
+      "quantity": 1,
+      "sale": true
+    }
+  },
+  "Users": {
+    "-KIqOUVmiQh5qLae7pjE": {
+      "address": "private",
+      "cart": [
+        " "
+      ],
+      "date": 1464422758668,
+      "email": "mounir1badi@hotmail.com",
+      "favourits": [
+        " "
+      ],
+      "name": "Mounir Abderrahmani",
+      "phone": "private",
+      "photoUrl": "https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/12347683_973407976057907_8461905680767780607_n.jpg?oh=9bb6549b84923d39aeb122b71e2f05df&oe=57DF56B8",
+      "uid": "1063250750406962"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+<!--ADD--->
+<ion-view style="background-color: rgb(43, 126, 20);"  title="Update Profile">
+    <ion-content class="note-content has-header" padding="true" >
+
+
+
+
+        <div style="box-sizing: border-box" class="img">
+
+            <img src="//graph.facebook.com/{{owner.FBId}}/picture?type=large">
+        </div>
+
+
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="number" placeholder="Price (TL)" ng-model="price">
+            </label>
+
+        </form>
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="number" placeholder="Quantity Number of item available for sale" ng-model="quantity">
+            </label>
+
+        </form>
+
+        <form style="" class="list">
+            <label class="item item-input ">
+                <textarea rows="5" placeholder="Product Description write few words about this"
+                          ng-model="description"></textarea>
+            </label>
+
+        </form>
+
+        <form style="" class="list">
+
+            <label class="item item-input  ">
+                <input type="text" placeholder="paste Image Source Code  " ng-model="img">
+            </label>
+        </form>
+
+        <form style="" class="button-right">
+            <ion-checkbox ng-model="isused" style="">Second Hand</ion-checkbox>
+            <a style="color: #9E2424" class="button button-icon icon ion-images" ng-click="userPic()"> upload a
+                picture</a>
+        </form>
+
+        <div class="item button button-block button-balanced"
+             ng-model="addNoteButton"
+             ng-disabled="!title || !description || !quantity || !price|| !img "
+             ng-show="isEdit===true" ng-click="updateProduct(myid)">submit Edited Product
+
+        </div>
+
+
+    </ion-content>
+</ion-view>

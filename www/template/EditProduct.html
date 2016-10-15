@@ -1,0 +1,74 @@
+<ion-view style="color:#bfbfbf" class="text-center"  title="Edit Product">
+    <ion-content class="has-header" padding="true"  ng-controller="EditProductCtrl">
+
+        <form style="" class="list">
+            <ion-toggle ng-show="isEdit===true" ng-model="forsale" toggle-class="toggle-calm">For Sale/Sold</ion-toggle>
+        </form>
+
+
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="title" ng-model="title">
+            </label>
+        </form>
+
+ 
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="number" placeholder="Price (TL)" ng-model="price">
+            </label>
+        </form>
+        
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="number" placeholder="Quantity Number of item available for sale" ng-model="quantity">
+            </label>
+
+        </form>
+
+        <form style="" class="list">
+            <label class="item item-input ">
+                    <textarea rows="5" placeholder="Product Description write few words about this"
+                              ng-model="description"></textarea>
+            </label>
+        </form>
+
+        <form style="" class="list">
+
+            <label class="item item-input  ">
+                <input type="text" placeholder="paste Image Source Code  " ng-model="img">
+            </label>
+        </form>
+
+        <form style="" class="button-right">
+            <ion-checkbox ng-model="isused" style="">Second Hand</ion-checkbox>
+        </form>
+
+        <form style="" class="button-balanced">
+            <a style="color: #9E2424" class="button button-icon icon ion-images" ng-click="userPic()"> upload a
+                picture</a>
+        </form>
+
+
+        <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+        <img ng-show="imgURI === undefined" ng-src="{{img}}">
+
+
+        <label class="item-input item-select">
+            <div class="input-label">
+                Category
+            </div>
+            <select ng-model="data.index" ng-options="categories.indexOf(item) as item for item in categories"
+                    ng-change="choice()">
+            </select>
+        </label>
+
+        <div class="item button button-block button-balanced"
+             ng-model="editNoteButton"
+             ng-disabled="!title "
+             ng-show="isEdit===true" ng-click="updateProduct(myid)">submit Edited Product
+
+        </div>
+
+    </ion-content>
+</ion-view>

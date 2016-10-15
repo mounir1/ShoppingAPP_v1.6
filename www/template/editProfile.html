@@ -1,0 +1,75 @@
+<!--ADD--->
+<ion-view style="background-color: rgb(188, 26, 424);" id="addProduct" title="Update Profile">
+    <ion-content class="note-content has-header" padding="true">
+
+
+        <div style="box-sizing: border-box" class="img">
+
+            <img src="//graph.facebook.com/{{owner.uid}}/picture?type=large">
+        </div>
+
+
+        <form class="list-header">
+            <div class="android-cart" style="border-radius: 10px;color: #fff6f5;">name : {{owner.name}}</div>
+        </form>
+
+
+        <form style="" class="list">
+            <div>Email :</div>
+            <label class="item item-input">
+                <input type="email" placeholder="Email" ng-model="owner.email">
+            </label>
+        </form>
+
+        <form style="" class="list">
+            <div>Phone Number :</div>
+            <label class="item item-input">
+                <input type="text" placeholder="Phone Number" ng-model="owner.phone">
+            </label>
+        </form>
+
+        <form style="" class="list">
+            <div>Address :</div>
+            <label class="item item-input ">
+                <textarea rows="5" placeholder="write your full Address" ng-model="owner.address"></textarea>
+            </label>
+        </form>
+
+        <div>Bank Card Information :</div>
+
+        <form style="" class="list">
+            <label class="item item-input">
+                <input type="text" placeholder="Name on the card" ng-model="owner.bankcard.name">
+            </label>
+        </form>
+
+        <form style="" class="list">
+            <label class="item item-input ">
+                <input id="credit-card-no" type="text" maxlength="16" name="bankNo" placeholder="XXXX XXXX XXXX XXXX"
+                       ng-model="owner.bankcard.no">
+            </label>
+        </form>
+
+        <form style="" class="list">
+            <label class="item item-input">
+                <input id="expr-date" type="text" name="phone" placeholder="Month / Year"
+                       ng-model="owner.bankcard.exp">
+            </label>
+        </form>
+
+        <form style="" class="list">
+            <label class="item item-input">
+                <input id="cvv" maxlength="3" type="text" name="phone" placeholder="CVV" ng-model="owner.bankcard.cvv">
+            </label>
+        </form>
+
+
+        <div class="item button button-block button-balanced"
+
+             ng-click="updateProfile()">submit Edited Product
+
+        </div>
+
+
+    </ion-content>
+</ion-view>

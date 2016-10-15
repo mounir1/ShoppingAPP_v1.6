@@ -1,0 +1,63 @@
+<ion-view class="profile-page" ng-controller="ProfileCtrl" view-title="{{owner.name}}">
+   
+    <ion-content class="" padding="true" style="">
+
+        <div style="box-sizing: border-box" class="img">
+
+            <img src="//graph.facebook.com/{{owner.uid}}/picture?type=large">
+        </div>
+        <form class="list-header">
+            <div class="android-cart" style="border-radius: 10px;color: #fff6f5;">name : {{owner.name}}</div>
+        </form>
+
+        <form class="list-header">
+            <div class="android-cart" style="border-radius: 10px;color: #fff6f5;">Email : {{owner.email}}</div>
+        </form>
+
+        <form class="list-header">
+            <div class="android-cart" style="border-radius: 10px;color: #fff6f5;">Phone Number : {{owner.phone}}</div>
+        </form>
+
+        <form class="list-header">
+            <div class="android-cart" style="border-radius: 10px;color: #fff6f5;">Address : {{owner.address}}</div>
+        </form>
+
+        <form class="list-header" style="color: #fff6f5;"><span style="background-color: #0a9dc7">since : {{owner.date | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}</span>
+        </form>
+
+        <form class="list-header">
+            <button class="button button-positive icon ion-social-facebook" href="http://Facebook.com/{{owner.uid}}">
+            </button>
+        </form>
+
+        <form class="ios-list-outline" style="align-self: center;color: #ff7225;color-rendering: #d93">
+            <button class="button button-positive icon ion-android-people">Followers : {{24}}
+            </button>
+        </form>
+        
+        <form class="ios-list-outline" style=" color: #f12124;color-rendering: #d93">
+            <button class="button button-balanced icon ion-android-people" ng-click="follow(owner.uid)">Follow </button>
+        </form>
+
+        <form class="list-header">
+            <div class="rate-style" style=""> Rate <a
+                    style="align-content: flex-end;color-profile: #37d;box-suppress: #433"> {{10}} points </a>
+            </div>
+        </form>
+        <form class="list-header" style="border-style: double">
+            <button ng-show="currentuser === true" class="button button-assertive icon icon-left ion-alert "
+                    on-Click="ReportUser(owner.uid)">Report
+                User
+            </button>
+        </form>
+        <form class="list-header" style="border-style: double">
+
+            <button class="button button-block button-balanced"
+                    ng-model="updateinfo"
+                    ng-show="currentuser === true" ui-sref="app.EditProfile({id:owner.uid})">Update Info
+
+            </button>
+        </form>
+
+    </ion-content>
+</ion-view>

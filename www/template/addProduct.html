@@ -1,0 +1,183 @@
+<ion-view style="background-color: rgb(153, 216, 24);" class="text-center" title="Add Product">
+    <ion-content class="has-header" padding="true">
+
+
+        <div class="list" ng-controller="AddProductCtrl">
+            <form style="" class="list">
+                <label class="item item-input">
+                    <input type="text" placeholder="Title" ng-model="title">
+                </label>
+            </form>
+
+
+
+
+            <form style="" class="list">
+                <label class="item item-input">
+                    <input type="number" placeholder="Price (TL)" ng-model="price">
+                </label>
+            </form>
+
+            <form style="" class="list">
+                <label class="item item-input ">
+                    <textarea rows="5" placeholder="Description" ng-model="description"></textarea>
+                </label>
+            </form>
+
+
+
+            <form style="" class="list">
+                <label class="item item-input">
+                    <input type="number" placeholder="Quantity Number of item available for sale" ng-model="quantity">
+                </label>
+            </form>
+
+
+            <form style="" class="list">
+                <label class="item item-input  ">
+                    <input type="text" placeholder="paste Image Source Code  " ng-model="img">
+                </label>
+            </form>
+
+            <form style="" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        Category
+                    </div>
+                    <select ng-model="data.index" ng-options="categories.indexOf(item) as item for item in categories" ng-change="choice()">
+                    </select>
+                </label>
+            </form>
+
+<!--
+
+            <form ng-show="data.index = 0" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select >
+                        <option>Women Clothes</option>
+                        <option>Men Clothes</option>
+                        <option>Children Clothes</option>
+                    </select>
+                </label>
+            </form>
+
+            <form ng-show="data.index =1" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select>
+                        <option>Android</option>
+                        <option>ios</option>
+                    </select>
+                </label>
+            </form>
+            <form ng-show="data.index =2" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                    </div>
+                    <select >
+                        <option>Books</option>
+                        <option>EBooks</option>
+                    </select>
+                </label>
+            </form>
+            <form ng-show="data.index = 3" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select >
+                        <option>Computers</option>
+                        <option>Tablets</option>
+                    </select>
+                </label>
+            </form>
+            <form ng-show="data.index = 4" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select >
+                        <option>Normal Bikes</option>
+                        <option>Motor Bikes</option>
+                        <option>Electric Bikes</option>
+                    </select>
+                </label>
+            </form>
+            <form  ng-show="data.index = 5" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select >
+                        <option>Trucks</option>
+                        <option>Cars</option>
+                        <option>van</option>
+                    </select>
+                </label>
+            </form>
+            
+            <form  ng-disabled="data.index = 6" style="sub-category" class="list">
+                <label class="item-input item-select">
+                    <div class="input-label">
+                        sub Category
+                    </div>
+                    <select>
+                        <option>Jewelries</option>
+                        <option>watches</option>
+                    </select>
+                </label>
+            </form>
+-->
+
+
+            <form style="" class="button-right">
+                <ion-checkbox ng-model="isused" style="">Second Hand</ion-checkbox>
+            </form>
+
+
+
+            <form style="" class="button-balanced">
+                <a style="color: #9E2424" class="button button-icon icon ion-images" ng-click="userPic()"> upload a
+                    picture</a>
+            </form>
+
+            <form>
+                <div id="spin"></div>
+
+                <input class="hidden" type="file" accept="image/*" capture="camera" id="file-upload">
+                <br/>
+                <img class="pano" id="pano" />
+            </form>
+
+            <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}">
+            <img ng-show="imgURI !== undefined" ng-src="{{img}}">
+            <img ng-show="img === undefined" ng-src="img/logo.png">
+
+            <div class="item button button-block button-assertive" ng-model="addNoteButton" ng-disabled="!title || !description || !quantity || !price|| !img " ng-click="saveProduct()">submit
+            </div>
+
+
+        </div>
+
+
+        <!--<div class="item button button-block button-assertive"-->
+        <!--ng-model="addButton"-->
+        <!---->
+        <!--ng-click="saveProduct()">submit-->
+        <!--</div>-->
+
+        <!--<div class="item button button-block button-balanced"-->
+        <!--ng-model="editNoteButton"-->
+        <!--ng-disabled="!title || !description || !quantity || !price|| !img "-->
+        <!--ng-show="isEdit===true" ng-click="updateProduct(myid)">submit Edited Product-->
+
+        <!--</div>-->
+
+
+    </ion-content>
+</ion-view>

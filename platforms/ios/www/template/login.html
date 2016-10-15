@@ -1,0 +1,30 @@
+<ion-modal-view class="ios-color-wand-outline" padding ="true">
+    <ion-header-bar>
+        <div class="buttons">
+            <button class="button button-clear" ng-click="closeLogin()">Close</button>
+        </div>
+    </ion-header-bar>
+    <ion-content padding="true">
+        <form ng-submit="doLogin()">
+            <div class="list">
+                <label class="item item-input">
+                    <span class="input-label">Username</span>
+                    <input type="text" ng-model="loginData.username">
+                </label>
+                <label class="item item-input">
+                    <span class="input-label">Password</span>
+                    <input type="password" ng-model="loginData.password">
+                </label>
+                <label class="item">
+                    <button class="button button-block button-positivse" type="submit">Log in</button>
+                </label>
+                <!--<label class="item">-->
+                    <!--&lt;!&ndash;<button class="button button-block button-positive icon ion-social-facebook" ng-click="LoginFB()">-->
+                        <!--LogIn with Facebook-->
+                    <!--</button>&ndash;&gt;-->
+                <!--</label>-->
+            </div>
+        </form>
+        <!--<img class="img-logo" src="img/logo.png">-->
+    </ion-content>
+</ion-modal-view>

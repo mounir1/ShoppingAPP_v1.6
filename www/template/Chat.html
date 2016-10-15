@@ -1,0 +1,23 @@
+<ion-view  view-title="Chat with {{touser.name}}" >
+    <ion-content padding="true" ><img ng-show="chat.from === touser.name" class = "profile-image; float: right" ng-src="{{touser.photoUrl}}">
+        <div class="list">
+            <a class="item item-avatar" ng-repeat="chat in mychat" href="https://facebook.com/{{touser.uid}}">
+                <img ng-show="chat.from === fromuser.name" class = "profile-image" ng-src="{{fromuser.photoUrl}}">
+                <img ng-show="chat.from === touser.name" class = "profile-image" ng-src="{{touser.photoUrl}}">
+                <p>{{chat.message}}</p>
+                <span class="time-display" am-time-ago="chat.time"></span>
+               
+            </a>
+        </div>
+        <form>
+            <div class="list">
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper" style="background-color: #fff">
+                        <input type="text" placeholder="Message" ng-model="chat.message" style="background-color: #fff">
+                    </label>
+                    <button class="button button-positive icon ion-android-send" ng-click="sendChat(chat)"></button>
+                </div>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

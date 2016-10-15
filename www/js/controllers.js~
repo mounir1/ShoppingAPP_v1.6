@@ -1,0 +1,387 @@
+angular.module('app.controllers', ['firebase', 'ngCordova'])
+
+    .controller('listCtrl', function ($scope, $rootScope, $state, productService, $ionicActionSheet, $ionicHistory, $firebaseArray, ForeignKeys, userService) {
+
+        $scope.Products = productService.all;
+
+        $scope.user = userService.getuser($rootScope.CurrentUserID);
+
+        $scope.isforSale = function (product) {
+            if (product.sale === true)
+                return true;
+            else
+                return false;
+        };
+
+        ///todo Ordering Function
+        $scope.orderProductsBy = function (order) {
+
+        };
+        console.log("$rootScope.CurrentUserID " + $rootScope.CurrentUserID);
+
+        $scope.isAllowedUser = function (product) {
+            if (product.ownerId === $rootScope.CurrentUserID)
+                return true;
+            else
+                return false;
+            console.log("product.ownerId  " + product.ownerId);
+        };
+
+        // else if ($rootScope.CurrentUserID !== undefined)
+        //     alert($scope.user.name + " You don't have right to perform this action ! ");
+        // else alert(" You don't have right to perform this action !");
+        // return false ;
+
+        ///todo refresh function
+        // $scope.doRefresh = function () {
+        //     $scope.Products = productService.all;
+        //     $ionicHistory.nextViewOptions({
+        //         disableBack: true
+        //     });
+        //     $state.go('app.ListProducts');
+        // };
+
+        $scope.AddFavorite = function (item) {
+            $scope.user = userService.getuser($rootScope.CurrentUserID);
+            $scope.faved = false;
+            if ($rootScope.CurrentUserID !== undefined) {
+                $scope.users = userService.all;
+                for (var i = 0; i < $scope.user.favourits.length; i++) {
+                    if ($scope.user.favourits[i] === item.$id) {
+                        $scope.faved = true;
+                        item.star;
+                        break;
+                    }
+                }
+                if ($scope.faved)
+                    $scope.user.favourits.pop(item.$id);
+                else {
+                item.star = !item.star;
+                    $scope.user.favourits.push(item.$id);
+                }
+                $scope.users.$save($scope.user);
+            }
+            ///todo notify the owner about the like !!
+            else {
+                                item.star = !item.star;
+
+                alert("LogIn to add this to your Favourite List");
+            }
+        };
+
+        $scope.AddToCart = function (item) {
+            $scope.incart = false;
+            if ($rootScope.CurrentUserID !== undefined) {
+                $scope.users = userService.all;
+                $scope.user = userService.getuser($rootScope.CurrentUserID);
+                for (var i = 0; i < $scope.user.cart.length; i++) {
+                    if ($scope.user.cart[i] === item.$id) {
+                        $scope.incart = true;
+                        break;
+                    }
+                }
+                if (!$scope.incart)
+                    $scope.user.cart.push(item.$id);
+                else {
+                    $scope.showConfirm = function () {
+                        var confirmPopup = $ionicPopup.confirm({
+                            title: 'Manage Cart ',
+                            template: 'This Product is Already in your cart Do you want to remove it ?'
+                        });
+
+                        confirmPopup.then(function (res) {
+                            if (res) {
+                                $scope.user.cart.pop(item.$id);
+                            } else {
+                                console.log('You are not sure so the product is in cart !');
+                            }
+                        });
+                    };
+                }
+                $scope.users.$save($scope.user);
+            } else
+                alert("LogIn to add this to your Cart");
+
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('app.ListProducts');
+            ///todo notify Original User About the Purchase request !!
+        };
+
+        $scope.Delete = function (item) {
+            if ($rootScope.CurrentUserID === item.ownerId) {
+
+                $ionicActionSheet.show({
+                    destructiveText: 'Delete',
+                    titleText: 'Are you sure ?',
+                    cancelText: 'cancel',
+                    destructiveButtonClicked: function () {
+                        $scope.Products.$remove(item);
+                        return true;
+                    }
+                });
+            }
+            else {
+                alert("You don't have right to perform this action !");
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go('app.ListProducts');
+            }
+        }
+    })
+
+    .controller('ProfileCtrl', function ($scope, $rootScope, $state, userService, $stateParams, $ionicHistory, ForeignKeys) {
+        $scope.currentuser = false;
+        $scope.owner = userService.getuser($stateParams.id);
+
+        if ($rootScope.CurrentUserID === $stateParams.id)  // current user's profile
+            $scope.currentuser = true;
+        else {
+            if ($rootScope.CurrentUserID === undefined) {
+                alert("Login First");
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go('app.ListProducts');
+            }
+        }
+
+        console.log("currentuser  " + $scope.currentuser);
+
+    })
+
+    .controller('EditProductCtrl', function ($rootScope, userService, $stateParams, $state, $scope, productService, $ionicHistory, ForeignKeys) {
+
+        $scope.categories = ["Clothing", "Smart Phones", "Books,EBooks", "Computers/Tablets", "Bikes and MotorBikes", "Vehicules and Cars", "Jewelries and watches", "Anything else"];
+
+        $scope.data = {};
+
+
+        $scope.isEdit = true;
+
+        $scope.Products = productService.all;
+        $scope.product = productService.get($stateParams.id);
+
+        $scope.title = $scope.product.title;
+        $scope.price = $scope.product.price;
+        $scope.quantity = $scope.product.quantity;
+        $scope.description = $scope.product.description;
+        $scope.img = $scope.product.img;
+        $scope.isused = $scope.product.isused;
+        $scope.forsale = $scope.product.sale;
+        $scope.data.index = $scope.product.categoryId;
+
+        $scope.myid = $scope.product.$id;
+
+        $scope.updateProduct = function (id) {
+            var product = $scope.Products.$getRecord(id);
+
+            product.title = $scope.title;
+            product.price = $scope.price;
+            product.quantity = $scope.quantity;
+            product.description = $scope.description;
+            product.img = $scope.img;
+            product.isused = $scope.isused;
+            product.sale = $scope.forsale;
+            product.categoryId = $scope.data.index;
+
+            $scope.Products.$save(product);
+            $ionicHistory.nextViewOptions({
+                disableBack: true
+            });
+            $state.go('app.ListProducts');
+        };
+
+
+    })
+
+
+    .controller('SingleCtrl', function ($scope, $rootScope, productService, $stateParams, userService, $ionicHistory, ForeignKeys) {
+        $scope.singleProduct = productService.get($stateParams.id);
+
+        $scope.isAllowedUser = function (product) {
+            if (product.ownerId === $rootScope.CurrentUserID)
+                return true;
+            else
+                return false;
+            console.log("product.ownerId  " + product.ownerId);
+        };
+        $scope.Delete = function (item) {
+            if ($rootScope.CurrentUserID === item.ownerId) {
+
+                $ionicActionSheet.show({
+                    destructiveText: 'Delete',
+                    titleText: 'Are you sure ?',
+                    cancelText: 'cancel',
+                    destructiveButtonClicked: function () {
+                        $scope.Products.$remove(item);
+                        return true;
+                    }
+                });
+            }
+            else {
+                alert("You don't have right to perform this action !");
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+                $state.go('app.ListProducts');
+            }
+        };
+        $scope.AddToCart = function (item) {
+            $scope.incart = false;
+            if ($rootScope.CurrentUserID !== undefined) {
+                $scope.users = userService.all;
+                $scope.user = userService.getuser($rootScope.CurrentUserID);
+                for (var i = 0; i < $scope.user.cart.length; i++) {
+                    if ($scope.user.cart[i] === item.$id) {
+                        $scope.incart = true;
+                        break;
+                    }
+                }
+                if (!$scope.incart)
+                    $scope.user.cart.push(item.$id);
+                else {
+                    $scope.showConfirm = function () {
+                        var confirmPopup = $ionicPopup.confirm({
+                            title: 'Manage Cart ',
+                            template: 'This Product is Already in your cart Do you want to remove it ?'
+                        });
+
+                        confirmPopup.then(function (res) {
+                            if (res) {
+                                $scope.user.cart.pop(item.$id);
+                            } else {
+                                console.log('You are not sure so the product is in cart !');
+                            }
+                        });
+                    };
+                }
+                $scope.users.$save($scope.user);
+            } else
+                alert("LogIn to add this to your Cart");
+
+            // notify Original User About the Purchase request !!
+        };
+
+
+        $scope.AddFavorite = function (item) {
+            $scope.user = userService.getuser($rootScope.CurrentUserID);
+            $scope.faved = false;
+            if ($rootScope.CurrentUserID !== undefined) {
+                $scope.users = userService.all;
+                for (var i = 0; i < $scope.user.favourits.length; i++) {
+                    if ($scope.user.favourits[i] === item.$id) {
+                        $scope.faved = true;
+                        item.star;
+                        break;
+                    }
+                }
+                if ($scope.faved)
+                    $scope.user.favourits.pop(item.$id);
+                else {
+                    !item.star;
+                    $scope.user.favourits.push(item.$id);
+                }
+                $scope.users.$save($scope.user);
+            }
+            else {
+                item.star = !item.star;
+                alert("LogIn to add this to your Favourite List");
+            }
+        };
+
+        $scope.RateIt = function () {
+            console.log($scope.rate);
+        };
+
+
+        $scope.BuyNow = function (product) {
+
+            ///todo initialize payment Method and check the owner response
+
+        }
+    })
+
+    .controller('editProfileCtrl', function ($scope, userService, $stateParams, $ionicHistory, ForeignKeys) {
+        $scope.users=userService.all;
+        $scope.owner = userService.getuser($stateParams.id);
+        
+$scope.updateProfile = function(){
+            $scope.users.$save($scope.owner);
+
+};
+
+    })
+
+    .controller('electronicDevicesCtrl', function ($scope, productService) {
+
+
+    })
+
+    .controller('clothesCtrl', function ($scope) {
+
+    })
+
+    .controller('menClothingCtrl', function ($scope) {
+
+    })
+
+    .controller('womenClothingCtrl', function ($scope) {
+
+    })
+
+    .controller('phonesCtrl', function ($scope) {
+
+    })
+
+    .controller('tabletsCtrl', function ($scope) {
+
+    })
+
+    .controller('computersCtrl', function ($scope) {
+
+    })
+
+    .controller('booksCtrl', function ($scope) {
+
+    })
+
+    .controller('jewelriesWatchesCtrl', function ($scope) {
+
+    })
+
+    .controller('bikesAndMotorBikesCtrl', function ($scope) {
+
+    })
+
+    .controller('everythingElseCtrl', function ($scope) {
+
+    })
+
+    .controller('carCtrl', function ($scope, productService, $ionicHistory, userService) {
+        var uid = ForeignKeys.getuserid();
+        if (uid !== null) {
+            var cartitems = userService.getuser(uid).cart;
+        }
+
+    })
+
+    .controller('watchlistCtrl', function ($scope, $ionicHistory, productService) {
+        $scope.products = productService.all;
+
+    })
+
+    .controller('CategoryCtrl', function ($scope, $ionicHistory, productService) {
+        $scope.products = productService.all;
+
+    })
+
+    .controller('cartCtrl', function ($scope, $firebaseArray, $state, $ionicHistory, cartService) {
+
+        $scope.Cart = cartService.all;
+        $scope.USER = userService.getuser($rootScope.CurrentUserID);
+        $scope.cart = $scope.USER.cart;
+
+    });
