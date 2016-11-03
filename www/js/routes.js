@@ -1,6 +1,77 @@
 angular.module('app.routes', [])
-    .config(function ($stateProvider, $urlRouterProvider) {
-        $stateProvider
+  .config(function ($stateProvider, $urlRouterProvider, $provide, $ionicConfigProvider) {
+
+        // Set tabs to bottom on Android.
+        $ionicConfigProvider.platform.android.tabs.position('bottom');
+        // Decorate $ionicPlatform.
+        $provide.decorator('$ionicPlatform', ['$delegate', '$window', function ($delegate, $window) {
+            $delegate.isTablet = function () {
+                return $window.matchMedia('(min-width:600px)').matches;
+            };
+            return $delegate;
+
+        }]);
+
+
+        // Ugly hack to "decorate" the $stateProvider.state() method.
+        // This allows us to automagically define 'tablet' states which use split views.
+        // We can probably do this better, or define our own $stateProvider to clean this up.
+        var $mmStateProvider = {
+            state: function (name, stateConfig) {
+                function setupTablet(state) {
+                    if (!state.tablet) {
+                        return;
+                    }
+
+                    // Support shorthand tablet definition.
+                    if (angular.isString(state.tablet)) {
+                        state.tablet = {
+                            parent: state.tablet
+                        }
+                    }
+
+                    var params = state.tablet,
+                        parent = params.parent,
+                        node = params.node || 'tablet',
+                        config = {};
+
+                    // Remove any trace from the state object.
+                    delete state['tablet'];
+
+                    // Prepare the default parameters for the tablet.
+                    delete params['node'];
+                    delete params['parent'];
+                    angular.copy(state, config);
+                    angular.extend(config, params);
+
+                    // We can only support 1 view at the moment.
+                    if (config.views.length > 1) {
+                        console.log('Cannot guess the view data to use for tablet state of ' + name);
+                        return;
+                    }
+
+                    // Find view name.
+                    var viewName, viewData;
+                    angular.forEach(config.views, function (v, k) {
+                        viewName = k;
+                        viewData = v;
+                    }, this);
+
+                    // Delete the original view and replace with the new one.
+                    delete config.views[viewName];
+                    config.views['tablet'] = viewData;
+
+                    // Define the new tablet state.
+                    $stateProvider.state.apply($stateProvider, [parent + '.' + node, config]);
+                }
+
+                setupTablet.apply(this, [stateConfig]);
+                $stateProvider.state.apply($stateProvider, [name, stateConfig]);
+                return this;
+            }
+        };
+
+        $mmStateProvider
 
             .state('app', {
                 url: '/',
@@ -34,7 +105,8 @@ angular.module('app.routes', [])
                         controller: 'ProfileCtrl'
                     }
                 }
-            }).state('app.EditProfile', {
+            })
+            .state('app.EditProfile', {
                 url: '/:id',
                 views: {
                     'menuContent': {
@@ -54,6 +126,7 @@ angular.module('app.routes', [])
                 }
             })
 
+   
             .state('app.editProduct', {
                 url: '/:id',
                 views: {
@@ -99,36 +172,36 @@ angular.module('app.routes', [])
                 }
             })
             .state('app.messages-discussion', {
-                            tablet: 'app.messages',
-                            url: '/messages-discussion/:index',
-                            views: {
-                                'menuContent': {
-                                    controller: 'mmMessageDiscussionCtrl',
-                                    templateUrl: 'template/site-messages-discussion.html',
-                                    resolve: {
-                                        discussion: function ($stateParams, mmMessages) {
-                                            return mmMessages.getDiscussion($stateParams.index);
-                                        }
-                                    }
-                                }
+                tablet: 'app.messages',
+                url: '/messages-discussion/:index',
+                views: {
+                    'menuContent': {
+                        controller: 'mmMessageDiscussionCtrl',
+                        templateUrl: 'template/site-messages-discussion.html',
+                        resolve: {
+                            discussion: function ($stateParams, mmMessages) {
+                                return mmMessages.getDiscussion($stateParams.index);
                             }
-                        })
+                        }
+                    }
+                }
+            })
 
-                        .state('app.messages-contacts', {
-                            url: '/messages-contacts',
-                            views: {
-                                'menuContent': {
-                                    controller: 'mmmessagescontactsctrl',
-                                    templateurl: 'template/site-messages-contacts.html',
-                                    resolve: {
-                                        contacts: function (mmmessages) {
-                                            return mmmessages.getcontacts();
-                                        }
-                                    }
-                                }
+            .state('app.messages-contacts', {
+                url: '/messages-contacts',
+                views: {
+                    'menuContent': {
+                        controller: 'mmmessagescontactsctrl',
+                        templateurl: 'template/site-messages-contacts.html',
+                        resolve: {
+                            contacts: function (mmmessages) {
+                                return mmmessages.getcontacts();
                             }
-                        })
-                        .state('app.messages-contact', {
+                        }
+                    }
+                }
+            })
+            .state('app.messages-contact', {
                 tablet: {
                     parent: 'app.messages',
                     node: 'contacts-tablet'
